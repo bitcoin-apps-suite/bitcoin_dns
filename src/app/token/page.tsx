@@ -5,8 +5,6 @@
 // import Taskbar from '@/components/Taskbar'
 
 export default function TokenPage() {
-  // const { data: session } = useSession()
-  const session = null // Temporary until next-auth is properly configured
 
   return (
     <div style={{ 

@@ -7,9 +7,6 @@ import Link from 'next/link'
 import { Book, Code, FileText, GitBranch, Rocket, Shield, Terminal, ChevronRight, ExternalLink, Copy, Check } from 'lucide-react'
 
 export default function DocsPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const { data: session } = useSession()
-  const session = null // Temporary until next-auth is properly configured
   const [activeSection, setActiveSection] = useState('getting-started')
   const [copiedCode, setCopiedCode] = useState('')
 

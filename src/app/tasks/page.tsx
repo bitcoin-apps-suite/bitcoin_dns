@@ -7,9 +7,6 @@ import Link from 'next/link'
 import { CheckCircle, Circle, Clock, Star, TrendingUp, Users, Award } from 'lucide-react'
 
 export default function TasksPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const { data: session } = useSession()
-  const session = null // Temporary until next-auth is properly configured
   const [filter, setFilter] = useState('all')
   const [contributors, setContributors] = useState<Array<{login: string, contributions: number}>>([])
 

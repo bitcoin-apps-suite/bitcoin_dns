@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, Globe, Shield, Coins, ArrowRight } from 'lucide-react';
+import { Globe, Shield, Coins, ArrowRight } from 'lucide-react';
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
