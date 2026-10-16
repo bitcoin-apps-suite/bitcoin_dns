@@ -26,6 +26,7 @@ export function useBitcoinOS() {
       }
     }
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- window.parent is browser-only; read after mount
     setIsInOS(checkOS())
 
     if (!checkOS()) return
