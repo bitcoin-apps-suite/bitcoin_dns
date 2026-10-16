@@ -58,9 +58,9 @@ export default function PortalPage() {
     setSetup({...setup, subdomain, ticker});
   };
 
+  const [notice, setNotice] = useState('');
   const handleSubmit = () => {
-    console.log('Deploying BRC-100 domain:', setup);
-    // This would call the BRC-100 deployment functions
+    setNotice('Deployment is not live yet. Nothing has been created or charged.');
   };
 
   return (
@@ -534,6 +534,9 @@ export default function PortalPage() {
                 Deploy BRC-100 Domain
               </button>
             )}
+          </div>
+          {notice && <p className="mt-4 text-center text-sm text-amber-700">{notice}</p>}
+          <div>
           </div>
         </div>
       </div>

@@ -89,8 +89,8 @@ const DevSidebar: React.FC<DevSidebarProps> = ({ onCollapsedChange }) => {
   const stats = {
     totalTokens: '1,000,000,000',
     devAllocation: '100,000,000',
-    activeContracts: '17',
-    totalRewards: '50M+'
+    activeContracts: '—',
+    totalRewards: '0'
   };
 
   return (

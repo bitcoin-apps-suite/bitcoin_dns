@@ -39,57 +39,6 @@ export default function ContributionsPage() {
   const [userStats] = useState<UserStats | null>(null)
   const [loading] = useState(false)
 
-  // Mock data for demonstration
-  const mockContributions: Contribution[] = [
-    {
-      id: 1,
-      type: 'pull_request',
-      title: 'Add BSV DNS resolver implementation',
-      description: 'Implemented complete DNS resolution using BSV blockchain with caching layer',
-      date: '2025-01-15',
-      status: 'merged',
-      points: 1000,
-      tokens: 2000,
-      pr: '#12',
-      url: 'https://github.com/bitcoin-corp/bitcoin_dns/pull/12'
-    },
-    {
-      id: 2,
-      type: 'issue',
-      title: 'Domain registration validation bug',
-      description: 'Found and reported critical validation issue in domain registration flow',
-      date: '2025-01-10',
-      status: 'closed',
-      points: 250,
-      tokens: 500,
-      issue: '#8',
-      url: 'https://github.com/bitcoin-corp/bitcoin_dns/issues/8'
-    },
-    {
-      id: 3,
-      type: 'pull_request',
-      title: 'Improve DNS query performance',
-      description: 'Optimized DNS query handling with Redis caching implementation',
-      date: '2025-01-05',
-      status: 'open',
-      points: 0,
-      tokens: 0,
-      pr: '#15',
-      url: 'https://github.com/bitcoin-corp/bitcoin_dns/pull/15'
-    }
-  ]
-
-  const mockStats: UserStats = {
-    totalContributions: 3,
-    pullRequests: 2,
-    issues: 1,
-    reviews: 0,
-    totalPoints: 1250,
-    totalTokens: 2500,
-    currentStreak: 7,
-    longestStreak: 14
-  }
-
   const getStatusColor = (status: string) => {
     switch(status) {
       case 'merged': return '#00ff88'
@@ -109,8 +58,8 @@ export default function ContributionsPage() {
     }
   }
 
-  const displayContributions = userContributions.length > 0 ? userContributions : mockContributions
-  const displayStats = userStats || mockStats
+  const displayContributions = userContributions
+  const displayStats = userStats
 
   return (
     <div style={{ 
@@ -129,13 +78,12 @@ export default function ContributionsPage() {
             </p>
             {!session && (
               <div className="auth-notice">
-                <p>Sign in to view your personal contribution dashboard</p>
-                <button className="sign-in-btn">Connect with GitHub</button>
+                <p>Contribution tracking is not live yet. See open work on GitHub issues.</p>
               </div>
             )}
           </section>
 
-          {(session || true) && ( // Show for demo purposes
+          {displayStats && (
             <>
               <section className="stats-overview">
                 <div className="stats-grid">

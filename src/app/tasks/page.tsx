@@ -25,18 +25,8 @@ export default function TasksPage() {
       .catch(err => console.error('Failed to fetch contributors:', err))
   }, [])
 
-  const tasks = [
-    { id: 1, title: 'Complete BSV DNS resolver integration', points: 500, status: 'in-progress', difficulty: 'medium', category: 'backend' },
-    { id: 2, title: 'Write unit tests for domain registration', points: 300, status: 'open', difficulty: 'easy', category: 'testing' },
-    { id: 3, title: 'Design domain NFT specification', points: 1000, status: 'open', difficulty: 'hard', category: 'blockchain' },
-    { id: 4, title: 'Implement domain search functionality', points: 750, status: 'open', difficulty: 'hard', category: 'backend' },
-    { id: 5, title: 'Create mobile responsive domain management', points: 200, status: 'completed', difficulty: 'easy', category: 'frontend' },
-    { id: 6, title: 'Add DNS record validation', points: 400, status: 'open', difficulty: 'medium', category: 'backend' },
-    { id: 7, title: 'Optimize DNS query performance', points: 350, status: 'in-progress', difficulty: 'medium', category: 'performance' },
-    { id: 8, title: 'Document DNS API endpoints', points: 250, status: 'open', difficulty: 'easy', category: 'documentation' },
-    { id: 9, title: 'Implement domain transfer system', points: 600, status: 'open', difficulty: 'medium', category: 'security' },
-    { id: 10, title: 'Create domain analytics dashboard', points: 800, status: 'open', difficulty: 'hard', category: 'frontend' },
-  ]
+  // Real tasks live on GitHub issues; no made-up points or statuses here.
+  const tasks: Array<{ id: number; title: string; points: number; status: string; difficulty: string; category: string }> = []
 
   const filteredTasks = tasks.filter(task => {
     if (filter === 'all') return true
@@ -187,6 +177,9 @@ export default function TasksPage() {
               </div>
 
               <div className="tasks-list">
+                {filteredTasks.length === 0 && (
+                  <p style={{ opacity: 0.7 }}>No tasks listed yet. Open work is tracked on <a href="https://github.com/bitcoin-apps-suite/bitcoin_dns/issues" style={{ textDecoration: 'underline' }}>GitHub issues</a>.</p>
+                )}
                 {filteredTasks.map(task => (
                   <div key={task.id} className="task-card">
                     <div className="task-header">

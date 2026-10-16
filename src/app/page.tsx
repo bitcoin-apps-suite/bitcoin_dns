@@ -6,11 +6,11 @@ import { Search, Globe, Shield, Coins, ArrowRight } from 'lucide-react';
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState('');
 
+  const [notice, setNotice] = useState('');
   const handleSearch = () => {
-    if (searchTerm.trim()) {
-      console.log('Searching for:', searchTerm);
-      // Here you would implement the actual search functionality
-    }
+    setNotice(
+      'Name registration is not open yet. bDNS names will register on-chain from your own wallet; nothing is charged until then.'
+    );
   };
 
   return (
@@ -120,7 +120,7 @@ export default function Home() {
                     <span>Register Domain</span>
                     <ArrowRight className="w-5 h-5" />
                   </button>
-                  <button className="border border-purple-500/30 text-purple-300 px-8 py-4 rounded-xl font-light hover:bg-purple-600/10 transition-all duration-200">
+                  <button onClick={handleSearch} className="border border-purple-500/30 text-purple-300 px-8 py-4 rounded-xl font-light hover:bg-purple-600/10 transition-all duration-200">
                     Check Availability
                   </button>
                 </div>
@@ -147,6 +147,9 @@ export default function Home() {
                 </p>
               </div>
               
+              {notice && (
+                <p className="text-sm text-amber-300 mt-4 text-center">{notice}</p>
+              )}
               <p className="text-sm text-gray-400 mt-4 text-center font-light">
                 Secure your corporate domain on Bitcoin SV blockchain with instant token issuance
               </p>
@@ -183,30 +186,6 @@ export default function Home() {
                   Corporate governance with BRC-101 token-weighted voting system.
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Statistics Section */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-500">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center text-white">
-            <div>
-              <div className="text-4xl font-bold mb-2">1,247</div>
-              <div className="text-purple-100">Active Domains</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">₿2.45</div>
-              <div className="text-purple-100">Total Volume</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">156</div>
-              <div className="text-purple-100">Token Holders</div>
-            </div>
-            <div>
-              <div className="text-4xl font-bold mb-2">99.9%</div>
-              <div className="text-purple-100">Uptime</div>
             </div>
           </div>
         </div>
