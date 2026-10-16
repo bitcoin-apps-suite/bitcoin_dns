@@ -20,6 +20,7 @@ const Dock: React.FC = () => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- mount flag avoids SSR clock mismatch
     setMounted(true);
     const timer = setInterval(() => {
       setCurrentTime(new Date());
@@ -97,10 +98,10 @@ const Dock: React.FC = () => {
     if (!app.disabled && app.url && !app.current) {
       if (app.url.startsWith('/')) {
         // Internal navigation
-        window.location.href = app.url;
+        window.location.assign(app.url);
       } else {
         // External navigation
-        window.location.href = app.url;
+        window.location.assign(app.url);
       }
     }
   };

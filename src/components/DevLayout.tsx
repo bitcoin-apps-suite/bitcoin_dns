@@ -17,6 +17,7 @@ const DevLayout: React.FC<DevLayoutProps> = ({ children }) => {
     // Check if sidebar is collapsed from localStorage on mount
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('devSidebarCollapsed');
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate from localStorage after mount (SSR-safe)
       setIsCollapsed(saved === 'true');
     }
     

@@ -27,7 +27,7 @@ export default function Taskbar() {
   const menuRef = useRef<HTMLDivElement>(null)
 
   const handleOpenExchange = () => {
-    window.location.href = '/exchange'
+    window.location.assign('/exchange')
   }
 
   const handleIssueShares = () => {
@@ -38,7 +38,7 @@ export default function Taskbar() {
     {
       label: 'Bitcoin DNS',
       items: [
-        { label: 'Home', shortcut: '⌘H', action: () => window.location.href = '/' },
+        { label: 'Home', shortcut: '⌘H', action: () => window.location.assign('/') },
         { divider: true },
         { label: 'About Bitcoin DNS', action: () => alert(
           'Bitcoin DNS v1.0.0\n\n' +
@@ -114,9 +114,9 @@ export default function Taskbar() {
         { divider: true },
         { label: 'Enter Full Screen', shortcut: '⌃⌘F', action: () => document.documentElement.requestFullscreen() },
         { divider: true },
-        { label: 'Zoom In', shortcut: '⌘+', action: () => (document.body.style as { zoom: string }).zoom = '110%' },
-        { label: 'Zoom Out', shortcut: '⌘-', action: () => (document.body.style as { zoom: string }).zoom = '90%' },
-        { label: 'Actual Size', shortcut: '⌘0', action: () => (document.body.style as { zoom: string }).zoom = '100%' }
+        { label: 'Zoom In', shortcut: '⌘+', action: () => document.body.style.setProperty('zoom', '110%') },
+        { label: 'Zoom Out', shortcut: '⌘-', action: () => document.body.style.setProperty('zoom', '90%') },
+        { label: 'Actual Size', shortcut: '⌘0', action: () => document.body.style.setProperty('zoom', '100%') }
       ]
     },
     {
@@ -128,8 +128,8 @@ export default function Taskbar() {
         { label: 'Set Royalties', action: () => console.log('Set royalties') },
         { label: 'Configure Dividends', action: () => console.log('Configure dividend distribution for FT token holders') },
         { divider: true },
-        { label: 'View My NFTs', action: () => window.location.href = '/my-nfts' },
-        { label: 'NFT Marketplace', action: () => window.location.href = '/marketplace' }
+        { label: 'View My NFTs', action: () => window.location.assign('/my-nfts') },
+        { label: 'NFT Marketplace', action: () => window.location.assign('/marketplace') }
       ]
     },
     {
@@ -159,8 +159,8 @@ export default function Taskbar() {
         { label: 'Multi-signature', action: () => console.log('Set multisig') },
         { divider: true },
         { label: 'Exchange', action: handleOpenExchange },
-        { label: 'Trading Hub', action: () => window.location.href = '/trading' },
-        { label: '$BDNS Token', action: () => window.location.href = '/token' },
+        { label: 'Trading Hub', action: () => window.location.assign('/trading') },
+        { label: '$BDNS Token', action: () => window.location.assign('/token') },
         { divider: true },
         { label: 'Verify on Chain', action: () => console.log('Verify') },
         { label: 'View on Explorer', href: 'https://whatsonchain.com', target: '_blank' }
@@ -178,7 +178,7 @@ export default function Taskbar() {
         { label: 'Share on X', action: () => window.open(`https://twitter.com/intent/tweet?text=Check out this domain on Bitcoin DNS&url=${window.location.href}`) },
         { label: 'Share on LinkedIn', action: () => console.log('LinkedIn share') },
         { label: 'Send to WhatsApp', action: () => window.open(`https://wa.me/?text=Check out this domain on Bitcoin DNS: ${window.location.href}`) },
-        { label: 'Send via Email', action: () => window.location.href = `mailto:?subject=Bitcoin DNS Domain&body=Check out this domain: ${window.location.href}` },
+        { label: 'Send via Email', action: () => window.location.assign(`mailto:?subject=Bitcoin DNS Domain&body=Check out this domain: ${window.location.href}`) },
         { divider: true },
         { label: 'Embed Code', action: () => console.log('Generate embed code') }
       ]
@@ -190,7 +190,7 @@ export default function Taskbar() {
         { label: 'Zoom', action: () => console.log('Zoom') },
         { divider: true },
         { label: 'Exchange', action: handleOpenExchange },
-        { label: 'Trading Hub', action: () => window.location.href = '/trading' },
+        { label: 'Trading Hub', action: () => window.location.assign('/trading') },
         { divider: true },
         { label: 'Bring All to Front', action: () => console.log('Bring to front') }
       ]
@@ -222,7 +222,7 @@ export default function Taskbar() {
         { label: 'Keyboard Shortcuts', action: () => console.log('Show shortcuts') },
         { divider: true },
         { label: 'API Documentation', href: '/api/docs', target: '_blank' },
-        { label: '$BDNS Token', action: () => window.location.href = '/token' },
+        { label: '$BDNS Token', action: () => window.location.assign('/token') },
         { label: 'BSV SDK Docs', href: 'https://docs.bsvblockchain.org', target: '_blank' },
         { label: 'BRC-100 wallets', href: 'https://bwalletx.com', target: '_blank' },
         { divider: true },
@@ -310,7 +310,7 @@ export default function Taskbar() {
               setActiveMenu(null)
             }}
             onDoubleClick={() => {
-              window.location.href = '/'
+              window.location.assign('/')
             }}
             style={{
               padding: '0 12px',
@@ -525,7 +525,7 @@ export default function Taskbar() {
       <button 
         className="sm:hidden flex-1 text-center" 
         onClick={() => {
-          window.location.href = '/'
+          window.location.assign('/')
         }}
         style={{ 
           fontSize: '14px',

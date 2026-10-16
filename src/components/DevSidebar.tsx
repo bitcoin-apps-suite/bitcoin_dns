@@ -41,6 +41,7 @@ const DevSidebar: React.FC<DevSidebarProps> = ({ onCollapsedChange }) => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('devSidebarCollapsed');
       if (saved !== null) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate from localStorage after mount (SSR-safe)
         setIsCollapsed(saved === 'true');
       }
     }
