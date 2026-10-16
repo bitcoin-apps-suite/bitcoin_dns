@@ -18,6 +18,7 @@ import {
   Terminal,
   Activity,
 } from 'lucide-react';
+import { useSidebarCollapsed, setSidebarCollapsed } from '@/lib/utils/clientStore';
 import './DevSidebar.css';
 
 interface DevSidebarProps {
@@ -25,32 +26,11 @@ interface DevSidebarProps {
 }
 
 const DevSidebar: React.FC<DevSidebarProps> = ({ onCollapsedChange }) => {
-  const [isCollapsed, setIsCollapsed] = useState(() => {
-    // Default to collapsed if no preference is saved
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('devSidebarCollapsed');
-      return saved !== null ? saved === 'true' : true;
-    }
-    return true;
-  });
+  const isCollapsed = useSidebarCollapsed();
   const [issueCount, setIssueCount] = useState<number>(0);
   const pathname = usePathname();
 
   useEffect(() => {
-    // Load collapsed state from localStorage on mount
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('devSidebarCollapsed');
-      if (saved !== null) {
-        // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrate from localStorage after mount (SSR-safe)
-        setIsCollapsed(saved === 'true');
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('devSidebarCollapsed', isCollapsed.toString());
-    }
     onCollapsedChange?.(isCollapsed);
   }, [isCollapsed, onCollapsedChange]);
 
@@ -72,7 +52,7 @@ const DevSidebar: React.FC<DevSidebarProps> = ({ onCollapsedChange }) => {
     subtitle?: string;
   }> = [
     { path: '/contracts', icon: FileText, label: 'Contracts', badge: '17', subtitle: 'Development contracts' },
-    { path: '/tasks', icon: Terminal, label: 'Tasks', badge: '17', subtitle: 'Active GitHub issues' },
+    { path: '/tasks', icon: Terminal, label: 'Tasks', badge: issueCount ? String(issueCount) : undefined, subtitle: 'Active GitHub issues' },
     { path: '/contributions', icon: Users, label: 'Contributors', badge: '2' },
     { path: '/docs', icon: BookOpen, label: 'Documentation' },
     { path: '/token', icon: DollarSign, label: '$BDNS', badge: 'NEW' },
@@ -105,7 +85,7 @@ const DevSidebar: React.FC<DevSidebarProps> = ({ onCollapsedChange }) => {
         )}
         <button 
           className="dev-sidebar-toggle"
-          onClick={() => setIsCollapsed(!isCollapsed)}
+          onClick={() => setSidebarCollapsed(!isCollapsed)}
           aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
         >
           {isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}

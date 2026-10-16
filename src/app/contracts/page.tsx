@@ -7,9 +7,6 @@ import Link from 'next/link'
 import { ExternalLink, DollarSign, Code, Zap } from 'lucide-react'
 
 export default function ContractsPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const { data: session } = useSession()
-  const session = null // Temporary until next-auth is properly configured
   interface GitHubIssue {
     id: number
     number: number

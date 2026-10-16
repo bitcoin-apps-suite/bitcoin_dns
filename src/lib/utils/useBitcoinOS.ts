@@ -3,7 +3,17 @@
  * Use this in your React apps to integrate with Bitcoin OS
  */
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useSyncExternalStore } from 'react'
+
+const noopSubscribe = () => () => {}
+
+function checkOS(): boolean {
+  try {
+    return window.parent !== window && window.parent.location.href.includes('bitcoin-os')
+  } catch {
+    return window.parent !== window
+  }
+}
 
 interface BitcoinOSConfig {
   theme?: 'light' | 'dark'
@@ -12,23 +22,12 @@ interface BitcoinOSConfig {
 }
 
 export function useBitcoinOS() {
-  const [isInOS, setIsInOS] = useState(false)
+  // Browser-only read; false during SSR, real value after hydration
+  const isInOS = useSyncExternalStore(noopSubscribe, checkOS, () => false)
   const [config, setConfig] = useState<BitcoinOSConfig>({})
   const [theme, setTheme] = useState<'light' | 'dark'>('dark')
 
   useEffect(() => {
-    // Check if running inside Bitcoin OS
-    const checkOS = () => {
-      try {
-        return window.parent !== window && window.parent.location.href.includes('bitcoin-os')
-      } catch {
-        return window.parent !== window
-      }
-    }
-
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- window.parent is browser-only; read after mount
-    setIsInOS(checkOS())
-
     if (!checkOS()) return
 
     // Handle messages from OS

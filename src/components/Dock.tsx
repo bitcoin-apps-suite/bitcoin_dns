@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Wallet, Mail, Music, FileText, HardDrive, Calendar, Search, Table, Share2, Briefcase, Store, Wifi, Volume2, Battery, Clock, TrendingUp, Building2, Shield, Video, Code2, Camera, MapPin, MessageCircle, Users, Gamepad2, BookOpen, Globe } from 'lucide-react';
+import Image from 'next/image';
+import { useMounted } from '@/lib/utils/clientStore';
 import './Dock.css';
 
 interface DockApp {
@@ -17,11 +19,9 @@ interface DockApp {
 
 const Dock: React.FC = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- mount flag avoids SSR clock mismatch
-    setMounted(true);
     const timer = setInterval(() => {
       setCurrentTime(new Date());
     }, 1000);
@@ -123,7 +123,7 @@ const Dock: React.FC = () => {
             >
               {app.id === 'bapps-store' ? (
                 <div className="dock-app-icon">
-                  <img src="/bapps-icon.jpg" alt="BAPPS" className="dock-app-image" />
+                  <Image src="/bapps-icon.jpg" alt="BAPPS" width={32} height={32} className="dock-app-image" />
                 </div>
               ) : (
                 <Icon className="dock-app-icon" style={{ color: getIconColor(app.color, index) }} />
