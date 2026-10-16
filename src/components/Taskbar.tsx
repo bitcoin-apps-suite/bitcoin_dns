@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-// import { useSession, signOut } from 'next-auth/react'
+import { useWallet } from '@/lib/bwallet'
+import WalletButton from './WalletButton'
 import { Menu, X } from 'lucide-react'
 
 interface DropdownItem {
@@ -19,8 +20,7 @@ interface DropdownMenu {
 }
 
 export default function Taskbar() {
-  // const { data: session } = useSession()
-  const session = null // Temporary until next-auth is properly configured
+  const { user: session, disconnect } = useWallet()
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [showBitcoinSuite, setShowBitcoinSuite] = useState(false)
   const [showMobileMenu, setShowMobileMenu] = useState(false)
@@ -65,7 +65,7 @@ export default function Taskbar() {
         { label: 'Preferences...', shortcut: '⌘,', action: () => console.log('Preferences') },
         { label: 'DNS Settings...', action: () => console.log('DNS settings') },
         { divider: true },
-        { label: session ? 'Sign Out' : 'Sign In', shortcut: '⌘Q', action: session ? () => console.log('Sign out') : () => document.querySelector<HTMLButtonElement>('[data-signin]')?.click() }
+        { label: session ? 'Sign Out' : 'Sign In', shortcut: '⌘Q', action: session ? disconnect : () => document.querySelector<HTMLButtonElement>('[data-signin]')?.click() }
       ]
     },
     {
@@ -224,7 +224,7 @@ export default function Taskbar() {
         { label: 'API Documentation', href: '/api/docs', target: '_blank' },
         { label: '$BDNS Token', action: () => window.location.href = '/token' },
         { label: 'BSV SDK Docs', href: 'https://docs.bsvblockchain.org', target: '_blank' },
-        { label: 'HandCash SDK', href: 'https://docs.handcash.io', target: '_blank' },
+        { label: 'BRC-100 wallets', href: 'https://bwalletx.com', target: '_blank' },
         { divider: true },
         { label: 'What\'s New', action: () => alert('New Features:\n\n• Domain NFT Containers (.nft)\n• FT Token Shares\n• Dividend Distribution\n• Multi-resolver DNS\n• Enhanced Encryption') },
         { divider: true },
@@ -594,17 +594,7 @@ export default function Taskbar() {
         >
           $BDNS
         </button>
-        {session ? (
-          <>
-            <span>{'Connected'}</span>
-            <span style={{ color: '#00ff88' }}>●</span>
-          </>
-        ) : (
-          <>
-            <span>Not Connected</span>
-            <span style={{ color: '#ff4444', opacity: 0.6 }}>●</span>
-          </>
-        )}
+        <WalletButton className="!py-0.5 !text-xs" />
       </div>
 
       {/* Mobile Menu Overlay */}
@@ -634,17 +624,7 @@ export default function Taskbar() {
               alignItems: 'center',
               justifyContent: 'space-between'
             }}>
-              {session ? (
-                <>
-                  <span style={{ color: '#ffffff', fontSize: '14px' }}>{'Connected'}</span>
-                  <span style={{ color: '#00ff88' }}>●</span>
-                </>
-              ) : (
-                <>
-                  <span style={{ color: '#ffffff', fontSize: '14px' }}>Not Connected</span>
-                  <span style={{ color: '#ff4444', opacity: 0.6 }}>●</span>
-                </>
-              )}
+              <WalletButton />
             </div>
 
 
